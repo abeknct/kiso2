@@ -1790,17 +1790,17 @@ Setwindow([-5,5],[-3,3]);
 
 
 
-defL=["0",[-1,0],1,"1",[0,1],1];
-Periodfun(defL, 2,["dr,2"]);
+defL=["0",[-2,0],1,"2",[0,2],1];
+Periodfun(defL,4,["dr,2"]);
 
-str="N=1";
+str="N=100";
 str=Textedit(50); //
 tmp=Strsplit(str,"=");
 if(length(tmp_2)>0,
 nn=parse(tmp_2);
-Fourierseries("1",["1/2","0","(1-(-1)^n)/(pi*n)"],2,nn,["Num=200","Color=blue"]);
-Htickmark([-4,"s2","-4",-3,"s2","-3",-2,"s2","-2",-1,"s2","-2",1,"s2","1",2,"s2","2",3,"s2","3",4,"s2","4"]);
-Vtickmark([1,"w2","1"]);
+Fourierseries("1",["1","0","2*(1-(-1)^n)/(pi*n)"],4,nn,["Num=1000","Color=blue"]);
+Htickmark([-4,"s2","-4",-6,"s2","-6",-2,"s2","-2",2,"s2","2",4,"s2","4",6,"s2","6"]);
+Vtickmark([2,"w2","2"]);
 );
 
 Windispg();
@@ -1821,13 +1821,13 @@ var cdy = CindyJS({
   geometry: [
     {name: "SW", type: "Free", pos: [4.0, 2.4, -0.8], color: [1.0,1.0,1.0], labeled: false, size: 2.0, border:false },
     {name: "NE", type: "Free", pos: [4.0, 2.4, 0.8], color: [1.0,1.0,1.0], labeled: false, size: 2.0, border:false },
-    {name: "Text50", type: "EditableText", pos: [4.0, -2.0880035458147943, -0.8149086025266049], color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 1.0], fillalpha: 1.0, minwidth: 100, text: "N=", textsize: 18.0}
+    {name: "Text50", type: "EditableText", pos: [4.0, -2.703024085590413, -0.8218364387935875], color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 1.0], fillalpha: 1.0, minwidth: 100, text: "N=", textsize: 18.0}
   ],
   ports: [{
     id: "CSCanvas",
-    width: 739,
-    height: 508,
-    transform: [{visibleRect: [-6.234188826011679, 4.5493360027465055, 6.548566751814861, -4.237727371456313]}],
+    width: 640,
+    height: 478,
+    transform: [{visibleRect: [-6.257711604589689, 4.678577393020279, 5.826718547176373, -4.346981376579999]}],
     axes: true,
     grid: 1.0,
     snap: true,
