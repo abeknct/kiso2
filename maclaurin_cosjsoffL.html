@@ -1334,13 +1334,13 @@ Ketcindyjsscale=1;
 <script id="csdraw" type="text/x-cindyscript">
 Ketinit();
 Setketcindyjs(["Label=[]","Color=offwhite"]);
-Seteditable(50,["y=","Size=18","Width=500"]);
+Seteditable(50,["y=1-x^2/2","Size=18","Width=500"]);
 
 Setwindow([-8,8],[-3,3]);
 
 Plotdata("1","cos(x)","x",["Num=500"]);
 
-str="y=1";
+str="y=1-x^2/2";
 str=Textedit(50); //
 tmp=Strsplit(str,"=");
 if(length(tmp_2)>0,
@@ -1367,13 +1367,13 @@ var cdy = CindyJS({
   geometry: [
     {name: "SW", type: "Free", pos: [4.0, 1.5, -0.5], color: [1.0,1.0,1.0], labeled: false, size: 2.0, border:false },
     {name: "NE", type: "Free", pos: [4.0, 1.5, 0.5], color: [1.0,1.0,1.0], labeled: false, size: 2.0, border:false },
-    {name: "Text50", type: "EditableText", pos: [4.0, -2.603174603174603, -0.5999754783604361], color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 1.0], fillalpha: 1.0, minwidth: 500, text: "y=", textsize: 18.0}
+    {name: "Text50", type: "EditableText", pos: [4.0, -2.603174603174603, -0.5999754783604361], color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 1.0], fillalpha: 1.0, minwidth: 500, text: "y=1-x^2/2", textsize: 18.0}
   ],
   ports: [{
     id: "CSCanvas",
     width: 739,
-    height: 396,
-    transform: [{visibleRect: [-9.749075687544067, 6.04522060950833, 9.801987902944578, -4.431398039792758]}],
+    height: 383,
+    transform: [{visibleRect: [-9.749075687544067, 6.04522060950833, 9.801987902944578, -4.0874686396894395]}],
     grid: 1.0,
     background: "rgb(247,247,247)"
   }],
