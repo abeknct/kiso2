@@ -119,36 +119,36 @@ Vtickmark([1,"w1","1",2,"w1","2",3,"w1","3",4,"w1","4",5,"w1","5",6,"w1","6"]);
 if(no==1 & ans==1,
  if([A.x,A.y]==[0,0] &[B.x,B.y]==[1,2] & [C.x,C.y]==[4,4] & [D.x,D.y]==[9,6],
    Plotdata("2","2*sqrt(x)","x",["dr,2","Color=red","Num=500"]);
-   Letter([0.5,-1],"e","正解　$y=\sqrt{x}$ のグラフを $y$ 軸方向に $2$ 倍に拡大したもの．",["Size=1.5"]);
+   Letter([0.5,-1.2],"e","正解　$y=\sqrt{x}$ のグラフを $y$ 軸方向に $2$ 倍に拡大したもの．",["Size=1.5"]);
    ,
-   Letter([0.5,-1],"e","不正解",["Color=red","Size=1.5"]);
+   Letter([0.5,-1.2],"e","不正解",["Color=red","Size=1.5"]);
  );
 );
 
 if(no==2 & ans==1,
  if([A.x,A.y]==[0,0] & [B.x,B.y]==[1,1/2] & [C.x,C.y]==[4,1] & [D.x,D.y]==[9,3/2],
   Plotdata("2","sqrt(x)/2","x=[0,XMAX]",["dr,2","Color=red","Num=500"]);
-  Letter([0.5,-1],"e","正解　$y=\sqrt{x}$ のグラフを $y$ 軸方向に $\dfrac{1}{2}$ 倍に縮小したもの．",["Size=1.5"]);
+  Letter([0.5,-1.2],"e","正解　$y=\sqrt{x}$ のグラフを $y$ 軸方向に $\dfrac{1}{2}$ 倍に縮小したもの．",["Size=1.5"]);
   ,
-  Letter([0.5,-1],"e","不正解",["Color=red","Size=1.5"]);  
+  Letter([0.5,-1.2],"e","不正解",["Color=red","Size=1.5"]);  
  );
 );
 
 if(no==3 & ans==1,
  if([A.x,A.y]==[0,0] & [B.x,B.y]==[0.5,1] & [C.x,C.y]==[2,2] & [D.x,D.y]==[4.5,3],
   Plotdata("2","sqrt(2*x)","x",["dr,2","Color=red","Num=500"]);
-  Letter([0.5,-1],"e","正解　$y=\sqrt{x}$ のグラフを $x$ 軸方向に $\dfrac{1}{2}$ 倍に縮小したもの．",["Size=1.5"]);
+  Letter([0.5,-1.2],"e","正解　$y=\sqrt{x}$ のグラフを $x$ 軸方向に $\dfrac{1}{2}$ 倍に縮小したもの．",["Size=1.5"]);
  ,
-  Letter([0.5,-1],"e","不正解",["Color=red","Size=1.5"]);
+  Letter([0.5,-1.2],"e","不正解",["Color=red","Size=1.5"]);
  );
 );
   
 if(no==4 & ans==1,
  if([A.x,A.y]==[0,0] & [B.x,B.y]==[1.5,1] & [C.x,C.y]==[6,2] & [D.x,D.y]==[13.5,3],
   Plotdata("2","sqrt(x/1.5)","x=[0,XMAX]",["dr,2","Color=red","Num=500"]);
-  Letter([0.5,-1],"e","正解　$y=\sqrt{x}$ のグラフを $x$ 軸方向に $1.5$ 倍に拡大したもの．",["Size=1.5"]);
+  Letter([0.5,-1.2],"e","正解　$y=\sqrt{x}$ のグラフを $x$ 軸方向に $1.5$ 倍に拡大したもの．",["Size=1.5"]);
   ,
-  Letter([0.5,-1],"e","不正解",["Color=red","Size=1.5"]);
+  Letter([0.5,-1.2],"e","不正解",["Color=red","Size=1.5"]);
  );
 );
 
@@ -156,11 +156,11 @@ Expr([XMAX,sqrt(XMAX)],"n2","y=\sqrt{x}",["Size=1.5"]);
 
 if(hint==1,
  if(no==3 % no==4,
-  Letter([0.8,-1.7],"e","$y=\sqrt{x}$ は $x=1$ のときに $y=1$ である．");
-  Letter([0.8,-2.3],"e","与えられた関数が $y=1$ となる $x$ の値を考えて，点 B を移動する．");
+  Letter([0.8,-2.2],"e","$y=\sqrt{x}$ は $x=1$ のときに $y=1$ である．");
+  Letter([0.8,-2.8],"e","与えられた関数が $y=1$ となる $x$ の値を考えて，点 B を移動する．");
  ,
-  Letter([0.8,-1.7],"e","$y=\sqrt{x}$ は $x=1$ のときに $y=1$ である．");
-  Letter([0.8,-2.3],"e","与えられた関数は $x=1$ のときにどんな値をとるかを考えて，点 B を移動する．");  
+  Letter([0.8,-2.2],"e","$y=\sqrt{x}$ は $x=1$ のときに $y=1$ である．");
+  Letter([0.8,-2.8],"e","与えられた関数は $x=1$ のときにどんな値をとるかを考えて，点 B を移動する．");  
  );
 );
 
@@ -201,18 +201,18 @@ var cdy = CindyJS({
     {name: "Text5", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 0.0, 1.0], fillalpha: 0.27272728085517883, script: "Mkflipanime();", text: "Flip", textsize: 18.0, dock: {corner: "UL", offset: [422.0, -20.0]}},
     {name: "Text21", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
     {name: "Text22", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
-    {name: "Text0", type: "Button", pos: [-2.929015458900547, -4.0, 3.6205174721519606], color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 0.0], fillalpha: 1.0, script: "ans=-ans;", text: "判定", textsize: 18.0},
+    {name: "Text0", type: "Button", pos: [-2.5932441216608964, -4.0, 3.081976217526258], color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 0.0], fillalpha: 1.0, script: "ans=-ans;", text: "判定", textsize: 18.0},
     {name: "Text6", type: "Button", pos: [-0.1759379042690824, -4.0, -0.5368637149521477], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 1.0, script: "no=1;", text: "(1)", textsize: 18.0},
-    {name: "Text8", type: "Button", pos: [-1.6178835680974468, -4.0, 1.8925833486915071], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 0.0], fillalpha: 1.0, script: "hint=-hint;", text: "ヒント", textsize: 18.0},
+    {name: "Text8", type: "Button", pos: [-1.2689014982419478, -4.0, 1.5080432294435961], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 0.0], fillalpha: 1.0, script: "hint=-hint;", text: "ヒント", textsize: 18.0},
     {name: "Text9", type: "Button", pos: [-0.6692609862787967, -4.0, -0.5368637149521477], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 1.0, script: "no=2;", text: "(2)", textsize: 18.0},
     {name: "Text10", type: "Button", pos: [-1.1940727756508334, -4.0, -0.5368637149521477], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 1.0, script: "no=3;", text: "(3)", textsize: 18.0},
     {name: "Text11", type: "Button", pos: [-1.7293808008103104, -4.0, -0.5368637149521477], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 1.0, script: "no=4;", text: "(4)", textsize: 18.0}
   ],
   ports: [{
     id: "CSCanvas",
-    width: 875,
-    height: 463,
-    transform: [{visibleRect: [-2.92956465311104, 8.145412177437258, 17.129786757654493, -2.4688503404878186]}],
+    width: 852,
+    height: 496,
+    transform: [{visibleRect: [-2.9208144169221995, 8.386156683060866, 17.32652177277851, -3.4010249485019863]}],
     grid: 0.5,
     snap: true,
     background: "rgb(168,176,192)"
