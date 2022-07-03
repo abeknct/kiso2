@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    
+    <title>scaling_irrational_function.cdy</title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #CSConsole {
+            background-color: #FAFAFA;
+            border-top: 1px solid #333333;
+            bottom: 0px;
+            height: 200px;
+            overflow-y: scroll;
+            position: fixed;
+            width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cindyjs.org/dist/v0.8/CindyJS.css">
+    <script type="text/javascript" src="https://cindyjs.org/dist/v0.8/Cindy.js"></script>
+    <script type="text/javascript" src="https://cindyjs.org/dist/v0.8/KetCindyPlugin.js"></script>
+<script id="csinit" type="text/x-cindyscript">
+use("KetCindyPlugin");
+Dircdy=loaddirectory;
+setdirectory(gethome());
+import("ketcindy.ini");
+
+no=1;
+ans=-1;
+flg=0;
+hint=-1;
+
+
+;
+</script>
+<script id="cskeytyped" type="text/x-cindyscript">
+kL=keydownlist();
+if(length(kL)>0,
+  if(kL==[17,70], //Ctr+f (Figures)
+    Viewtex();
+    kc();
+  );
+  if(kL==[16,17,80], //Ctr+Shift+p (Parent)
+    if(length(Shellparent)>0,
+      Makeshell(),Makebat();
+    );
+    WritetoSci(2);
+    kc();
+  );
+  if(kL==[17,74], //Ctr+j (Ketjsoff)
+    Mkketcindyjs(append(KETJSOP,"Web=n"));
+  );
+  if(kL==[16,17,74], //Ctr+Shift+j (Ketjson)
+    Mkketcindyjs(append(KETJSOP,"Web=yj"));
+  );
+);
+</script>
+<script id="csdraw" type="text/x-cindyscript">
+Ketinit();
+Setketcindyjs(["Label=[]","Color=offwhite"]);//no ketjs
+Ketcindyjsmain(["<pf10,fp>_;グラフの拡大と縮小"],[
+ "<pf5,fpbr>(1)_;$y=\sqrt{x}$ のグラフとの関係を考えて，与えられた関数のグラフが通る点に赤い点 A, B, C, D を移動する．<br>",
+ "<pf5,fp>(2)_;「判定」ボタンを押して，正解か確認する．<br>",
+ "<pf5,fp>(3)_;問題を変える場合はリロードし，問題番号のボタンを押す．"
+]);
+Addpackage(["emath","color"]);
+
+//Seteditable(50,["x=","Size=18","Width=60"]);
+//Seteditable(51,["x=","Size=18","Width=60"]);
+
+Setwindow([-1,15],[-1,7]);
+
+
+Putpoint("A",[0,0],[A.x,A.y]);
+Putpoint("B",[1,1],[B.x,B.y]);
+Putpoint("C",[4,2],[C.x,C.y]);
+Putpoint("D",[9,3],[D.x,D.y]);
+
+//while(flg==0,
+// no=randomint(4);
+// println(no);
+// flg=1;
+//);
+
+//func=[sin(x-pi/4),sin(x+pi/4),sin(x)+1,sin(x)-1];
+
+Letter([-1,7.5],"e","問題",["Size=1.5"]);
+
+if(no==1,
+ Expr([4.3,7.5],"e","y=2\sqrt{x}",["Size=1.5"]);
+);
+
+if(no==2,
+ Expr([4.3,7.5],"e","y=\dfrac{1}{2}\sqrt{x}",["Size=1.5"]);
+);
+
+if(no==3,
+ Expr([4.3,7.5],"e","y=\sqrt{2x}",["Size=1.5"]);
+);
+
+if(no==4,
+ Expr([4.3,7.5],"e","y=\sqrt{\dfrac{x}{1.5}}",["Size=1.5"]);
+);
+
+Plotdata("1","sqrt(x)","x=[0,XMAX]",["dr,2","Color=black","Num=500"]);
+
+if(not([A.x,A.y]==[0,0]) % not([B.x,B.y]==[1,1]) % not([C.x,C.y]==[4,2]) % not([D.x,D.y]==[9,3]),
+ Ospline("1",[A,B,C,D],["dr,2","Color=cyan"]);
+);
+
+Htickmark([1,"s1","1",2,"s1","2",3,"s1","3",4,"s1","4",5,"s1","5",6,"s1","6",7,"s1","7",8,"s1","8",9,"s1","9",10,"s1","10",11,"s1","11",12,"s1","12",13,"s1","13",14,"s1","14"]);
+
+Vtickmark([1,"w1","1",2,"w1","2",3,"w1","3",4,"w1","4",5,"w1","5",6,"w1","6"]);
+
+if(no==1 & ans==1,
+ if([A.x,A.y]==[0,0] &[B.x,B.y]==[1,2] & [C.x,C.y]==[4,4] & [D.x,D.y]==[9,6],
+   Plotdata("2","2*sqrt(x)","x",["dr,2","Color=red","Num=500"]);
+   Letter([0.5,-3],"e","正解　$y=\sqrt{x}$ のグラフを $y$ 軸方向に $2$ 倍に拡大したもの．",["Size=1.5"]);
+   ,
+   Letter([0.5,-3],"e","不正解",["Color=red","Size=1.5"]);
+ );
+);
+
+if(no==2 & ans==1,
+ if([A.x,A.y]==[0,0] & [B.x,B.y]==[1,1/2] & [C.x,C.y]==[4,1] & [D.x,D.y]==[9,3/2],
+  Plotdata("2","sqrt(x)/2","x=[0,XMAX]",["dr,2","Color=red","Num=500"]);
+  Letter([0.5,-3],"e","正解　$y=\sqrt{x}$ のグラフを $y$ 軸方向に $\dfrac{1}{2}$ 倍に縮小したもの．",["Size=1.5"]);
+  ,
+  Letter([0.5,-3],"e","不正解",["Color=red","Size=1.5"]);  
+ );
+);
+
+if(no==3 & ans==1,
+ if([A.x,A.y]==[0,0] & [B.x,B.y]==[0.5,1] & [C.x,C.y]==[2,2] & [D.x,D.y]==[4.5,3],
+  Plotdata("2","sqrt(2*x)","x",["dr,2","Color=red","Num=500"]);
+  Letter([0.5,-3],"e","正解　$y=\sqrt{x}$ のグラフを $x$ 軸方向に $\dfrac{1}{2}$ 倍に縮小したもの．",["Size=1.5"]);
+ ,
+  Letter([0.5,-3],"e","不正解",["Color=red","Size=1.5"]);
+ );
+);
+  
+if(no==4 & ans==1,
+ if([A.x,A.y]==[0,0] & [B.x,B.y]==[1.5,1] & [C.x,C.y]==[6,2] & [D.x,D.y]==[13.5,3],
+  Plotdata("2","sqrt(x/1.5)","x=[0,XMAX]",["dr,2","Color=red","Num=500"]);
+  Letter([0.5,-3],"e","正解　$y=\sqrt{x}$ のグラフを $x$ 軸方向に $1.5$ 倍に拡大したもの．",["Size=1.5"]);
+  ,
+  Letter([0.5,-3],"e","不正解",["Color=red","Size=1.5"]);
+ );
+);
+
+Expr([XMAX,sqrt(XMAX)],"n2","y=\sqrt{x}",["Size=1.5"]);
+
+if(hint==1,
+ if(no==3 % no==4,
+  Letter([0.8,-1.7],"e","$y=\sqrt{x}$ は $x=1$ のときに $y=1$ である．");
+  Letter([0.8,-2.3],"e","与えられた関数が $y=1$ となる $x$ の値を考えて，点 B を移動する．");
+ ,
+  Letter([0.8,-1.7],"e","$y=\sqrt{x}$ は $x=1$ のときに $y=1$ である．");
+  Letter([0.8,-2.3],"e","与えられた関数は $x=1$ のときにどんな値をとるかを考えて，点 B を移動する．");  
+ );
+);
+
+//if(abs(A.x-3)+abs(B.x-6)+abs(C.x-9)+abs(D.x-12)>0.1,
+//  Ospline("1",[O,A,B,C,D],["Color=red"]);
+//);
+
+Letter([[A.x,A.y],"n3e3","A",[B.x,B.y],"n3e3","B",[C.x,C.y],"n3e3","C",[D.x,D.y],"n3e3","D"]);
+
+
+
+
+Windispg();
+;
+</script>
+    <script type="text/javascript">
+var cdy = CindyJS({
+  scripts: "cs*",
+  defaultAppearance: {
+    dimDependent: 0.7,
+    fontFamily: "sans-serif",
+    lineSize: 1,
+    pointSize: 5.0,
+    textsize: 12.0
+  },
+  angleUnit: "°",
+  geometry: [
+    {name: "SW", type: "Free", pos: [4.0, 4.0, -4.0], color: [1.0, 0.0, 0.0], labeled: true},
+    {name: "NE", type: "Free", pos: [4.0, 1.8666666666666667, 0.26666666666666666], color: [1.0, 0.0, 0.0], labeled: true},
+    {name: "A", type: "Free", pos: [0.0, -0.0, 4.0], color: [1.0, 0.0, 0.0], labeled: true, size: 7.0},
+    {name: "B", type: "Free", pos: [4.0, 4.0, 4.0], color: [1.0, 0.0, 0.0], labeled: true, size: 7.0},
+    {name: "C", type: "Free", pos: [4.0, 2.0, 1.0], color: [1.0, 0.0, 0.0], labeled: true, size: 7.0},
+    {name: "D", type: "Free", pos: [4.0, 1.3333333333333333, 0.4444444444444444], color: [1.0, 0.0, 0.0], labeled: true, size: 7.0},
+    {name: "Text1", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [1.0, 0.286, 0.286], fillalpha: 0.27272728085517883, script: "Viewtex();\nkc();", text: "Figure", textsize: 18.0, dock: {corner: "UL", offset: [10.0, -20.0]}},
+    {name: "Text2", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 0.0], fillalpha: 0.27272728085517883, script: "if(length(Shellparent)>0,\n  Makeshell(),Makebat();\n);\nif(indexof(Libname,\"sci\")>0,\n  writetosci(2),writetoRS(2)\n);\nkc();", text: "Parent", textsize: 18.0, dock: {corner: "UL", offset: [77.0, -20.0]}},
+    {name: "Text3", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [1.0, 0.929, 0.6], fillalpha: 0.48717948717948717, script: "Parafolder();", text: "ParaF", textsize: 18.0, dock: {corner: "UL", offset: [297.0, -20.0]}},
+    {name: "Text4", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.51, 0.949, 1.0], fillalpha: 0.27272728085517883, script: "Mkanimation();", text: "Anime", textsize: 18.0, dock: {corner: "UL", offset: [353.0, -20.0]}},
+    {name: "Text5", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 0.0, 1.0], fillalpha: 0.27272728085517883, script: "Mkflipanime();", text: "Flip", textsize: 18.0, dock: {corner: "UL", offset: [422.0, -20.0]}},
+    {name: "Text21", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text22", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text0", type: "Button", pos: [-1.102229926518852, -4.0, 1.3038783531262874], color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 0.0], fillalpha: 1.0, script: "ans=-ans;", text: "判定", textsize: 18.0},
+    {name: "Text6", type: "Button", pos: [-0.1759379042690824, -4.0, -0.5368637149521477], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 1.0, script: "no=1;", text: "(1)", textsize: 18.0},
+    {name: "Text8", type: "Button", pos: [-1.6644243631569284, -4.0, 1.9689239471027984], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 0.0], fillalpha: 1.0, script: "hint=-hint;", text: "ヒント", textsize: 18.0},
+    {name: "Text9", type: "Button", pos: [-0.6692609862787967, -4.0, -0.5368637149521477], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 1.0, script: "no=2;", text: "(2)", textsize: 18.0},
+    {name: "Text10", type: "Button", pos: [-1.1940727756508334, -4.0, -0.5368637149521477], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 1.0, script: "no=3;", text: "(3)", textsize: 18.0},
+    {name: "Text11", type: "Button", pos: [-1.7293808008103104, -4.0, -0.5368637149521477], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 1.0, script: "no=4;", text: "(4)", textsize: 18.0}
+  ],
+  ports: [{
+    id: "CSCanvas",
+    width: 916,
+    height: 657,
+    transform: [{visibleRect: [-1.94998010819389, 9.083191045395855, 15.958758578220563, -3.7618322264101445]}],
+    grid: 0.5,
+    snap: true,
+    background: "rgb(168,176,192)"
+  }],
+  csconsole: false,
+  use: ["katex"],
+  cinderella: {build: 1976, version: [3, 0, 1976]}
+});
+    </script>
+</head>
+<body>
+    <div id="CSCanvas"></div>
+</body>
+</html>
