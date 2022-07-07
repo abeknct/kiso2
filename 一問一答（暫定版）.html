@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Q&A.cdy</title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #CSConsole {
+            background-color: #FAFAFA;
+            border-top: 1px solid #333333;
+            bottom: 0px;
+            height: 200px;
+            overflow-y: scroll;
+            position: fixed;
+            width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cindyjs.org/dist/v0.8/CindyJS.css">
+    <script type="text/javascript" src="https://cindyjs.org/dist/v0.8/Cindy.js"></script>
+    <script type="text/javascript" src="https://cindyjs.org/dist/v0.8/KetCindyPlugin.js"></script>
+<script id="csinit" type="text/x-cindyscript">
+use("KetCindyPlugin");
+Dircdy=loaddirectory;
+setdirectory(gethome());
+import("ketcindy.ini");
+
+no=1;
+ans=-1;
+;
+</script>
+<script id="cskeytyped" type="text/x-cindyscript">
+if(key()=="?" % keydownlist()==[32],
+  if(!isreal(NumTyped),NumTyped=0);
+  if(NumTyped==0,
+    DispStr=
+     "Figure(1) Parent(2) Parapara(3) Movie(4) Surf(5)";
+  );
+  if(NumTyped==1,
+    DispStr=
+     "Shift+ Title(T) Para(P) Slide(S) Digest(D)";
+  );
+  if(NumTyped==2,
+    DispStr="Shift+ Meshlab(M)";
+  );
+  if(NumTyped==3,
+    DispStr=
+     "Ch : disp(0) chg(9) N(+,-) add(<) rmv(>)";
+  );
+  drawtext(mouse().xy,DispStr,size->24);
+  NumTyped=mod(NumTyped+1,4);
+,
+  NumTyped=0;  
+);
+if(key()=="1",//Mkfigure
+  Viewtex();
+  kc();
+);
+if(key()=="2",//Mkparent
+  Viewparent();
+);
+if(key()=="3",//Flipbook(Parapara)
+  Flipbook();
+);
+if(key()=="4",//Texmovie
+  Texmovie();
+  kc();
+);
+if(key()=="5",//Surface
+  Cheader();
+  Cmain();
+  kcC();
+  if(ChNum>0,
+    Ch=[ChNum];
+  ,
+    Ch=[1];
+  );
+  ChNum=0;
+);
+if(key()=="T",//Title
+  Maketitle();
+);
+if(key()=="P",//ParaF
+  Parafolder();
+);
+if(key()=="S",//Slide 
+  Mkslides();
+);
+if(key()=="D",//Digest(Summary)
+  Mkslidesummary();
+);
+if(key()=="M",//Meshlab
+  Mkviewobj(OCNAME,OBJCMD,OCOPTION);
+);
+
+if(key()=="0",
+  Dispchoice();
+);
+if(key()=="9",
+  if(length(Ch)==0,
+    Ch=[ChNum];
+  ,
+    if(!contains(Ch,ChNum),
+      Ch=append(Ch,ChNum);
+      ChNum=Ch_(length(Ch)-1);
+      Ch=remove(Ch,[ChNum]);
+      Ch=sort(Ch);
+    );
+  );
+  Dispchoice();
+);
+if(key()=="+",
+  ChNum=ChNum+1;
+  Dispchoice();
+);
+if(key()=="-",
+  ChNum=ChNum-1;
+  Dispchoice();
+);
+if(key()=="<",
+  if(length(select(Ch,#==ChNum))==0,
+    Ch=append(Ch,ChNum);
+    Ch=sort(Ch);
+    ChNum=ChNum+1;
+  );
+  Dispchoice();
+);
+if(key()=="^",
+  if(length(Ch)==0,
+    Ch=[ChNum];
+  ,
+    if(!contains(Ch,ChNum),
+      Ch=Ch_(1..(length(Ch)-1));
+      Ch=append(Ch,ChNum);
+      Ch=sort(Ch);
+    );
+  );
+  ChNum=ChNum+1;
+  Dispchoice();
+);
+if(key()=="~",
+  if(length(Ch)==0,
+    Ch=[ChNum];
+  ,
+    if(!contains(Ch,ChNum),
+      Ch=Ch_(1..(length(Ch)-1));
+      Ch=append(Ch,ChNum);
+      Ch=sort(Ch);
+    );
+  );
+  ChNum=max(ChNum-1,1);
+  Dispchoice();
+);
+if(key()==">",
+  if(length(Ch)>0,
+    ChNum=Ch_(length(Ch));
+    Ch=Remove(Ch,[ChNum]);
+  );
+  Dispchoice();
+);
+;
+</script>
+<script id="csdraw" type="text/x-cindyscript">
+Ketinit();
+//Setfiles("");
+//Setparent(Cdyname()+"fig");
+
+Addpackage(["emath"]);
+
+if(no==1,
+ Letter([[-5,3],"e","Q1. $f(x,y)=0$ で与えられる $x$ の関数 $y$ の導関数は ?"],["Size=1.5"]);
+);
+
+if(no==1 & ans==1,
+ Letter([[-5,1],"e","A."],["Size=1.5"]);
+ Expr([[-4,1],"e","\dfrac{dy}{dy}=-\dfrac{f_x}{f_y}"],["Size=1.5"]);
+);
+
+if(no==2,
+ Letter([[-5,3],"e","Q2. $f(x,y,z)=0$ で与えられる $x$, $y$ の関数 $z$ の偏導関数は ?"],["Size=1.5"]);
+);
+
+if(no==2 & ans==1,
+ Letter([[-5,1],"e","A."],["Size=1.5"]);
+ Expr([[-4,1],"e","\dfrac{\partial z}{\partial x}=-\dfrac{f_x}{f_z}\ ,\quad \dfrac{\partial z}{\partial y}=-\dfrac{f_y}{f_z}"],["Size=1.5"]);
+);
+
+if(no==3,
+ Letter([[-5,3],"e","Q3. 曲面 $f(x,y,z)=0$ 上の点 $(x_0,\ y_0,\ z_0)$ における接平面の方程式は ?"],["Size=1.5"]);
+);
+
+if(no==3 & ans==1,
+ Letter([[-5,1],"e","A."],["Size=1.5"]);
+ Expr([[-4,1],"e","p(x-x_0)+q(y-y_0)+r(z-z_0)=0"],["Size=1.5"]);
+ Letter([[-4,0],"e","ただし，$p=f_x(x_0,\ y_0,\ z_0),\ q=f_y(x_0,\ y_0,\ z_0),\ r=f_z(x_0,\ y_0,\ z_0)$"],["Size=1.5"]);
+);
+
+if(no==4,
+ Letter([[-5,3],"e","Q4. 条件 $\varphi(x,y)=0$ のもとで，関数 $z=f(x,\ y)$ が極値をとる必要条件は ?"],["Size=1.5"]);
+);
+
+if(no==4 & ans==1,
+ Letter([[-5,1],"e","A."],["Size=1.5"]);
+ Expr([[-4,1],"e","\dfrac{f_x}{\varphi_x}=\dfrac{f_y}{\varphi_y}"],["Size=1.5"]);
+ Letter([[-4,-0.5],"e","ただし，$\varphi_x\neq 0,\ \varphi_y\neq 0$"],["Size=1.5"]);
+);
+
+if(no==5,
+ Letter([[-5,3],"e","Q5. 曲線群 $f(x,\ y,\ \alpha)=0$ の包絡線とは ?"],["Size=1.5"]);
+);
+
+if(no==5 & ans==1,
+ Letter([[-5,1],"e","A."],["Size=1.5"]);
+// Expr([[-4,1],"e","\dfrac{f_x}{\varphi_x}=\dfrac{f_y}{\varphi_y}"],["Size=1.5"]);
+ Letter([[-4,1],"e","曲線群 $f(x,\ y,\ \alpha)=0$ のすべての曲線に接する曲線（または直線）"],["Size=1.5"]);
+);
+
+if(no==6,
+ Letter([[-5,3],"e","Q6. 曲線群 $f(x,\ y,\ \alpha)=0$ の包絡線を求める方法は ?"],["Size=1.5"]);
+);
+
+if(no==6 & ans==1,
+ Letter([[-5,1],"e","A."],["Size=1.5"]);
+ Expr([[-4,1],"e","f(x,\ y,\ \alpha)=0,\ f_\alpha(x,\ y,\ \alpha)=0"],["Size=1.5"]);
+ Letter([[-4,0],"e","上の $2$ つの式から $\alpha$ を消去する．"],["Size=1.5"]);
+);
+
+if(no==7,
+ Letter([[-5,3],"e","Q7. 長方形領域 $D:a\leq x\leq b,\ c\leq y\leq d$ における"],["Size=1.5"]);
+ Letter([[-5,2],"e","$\phantom{Q7.}$ $2$ 重積分 $\displaystyle\iint_D f(x,\ y)\,dxdy$ の計算方法は ?"],["Size=1.5"]);
+);
+
+if(no==7 & ans==1,
+ Letter([[-5,-0.5],"e","A."],["Size=1.5"]);
+ Expr([[-4,-0.5],"e","\displaystyle\iint_D f(x,\ y)\,dxdy=\int_a^b\left\{\int_c^df(x,\ y)\,dy\right\}dx"],["Size=1.5"]);
+ Expr([[-4,-2],"e","\displaystyle\phantom{\iint_D f(x,\ y)\,dxdy}=\int_c^d\left\{\int_a^bf(x,\ y)\,dx\right\}dy"],["Size=1.5"]);
+// Letter([[-4,0],"e","上の\ 2\ つの式から $\alpha$ を消去する．"],["Size=1.5"]);
+);
+
+if(no==8,
+ Letter([[-5,3],"e","Q8. $x$ について縦線形の領域 $D:a\leq x\leq b,\ \varphi(x)\leq y\leq \psi(x)$ における"],["Size=1.5"]);
+ Letter([[-5,2],"e","$\phantom{Q7.}$ $2$ 重積分 $\displaystyle\iint_D f(x,\ y)\,dxdy$ の計算方法は ?"],["Size=1.5"]);
+);
+
+if(no==8 & ans==1,
+ Letter([[-5,-0.5],"e","A."],["Size=1.5"]);
+ Expr([[-4,-0.5],"e","\displaystyle\iint_D f(x,\ y)\,dxdy=\int_a^b\left\{\int_{\varphi(x)}^{\psi(x)}f(x,\ y)\,dy\right\}dx"],["Size=1.5"]);
+// Letter([[-4,0],"e","上の\ 2\ つの式から $\alpha$ を消去する．"],["Size=1.5"]);
+);
+
+if(no==9,
+ Letter([[-5,3],"e","Q9. $y$ について縦線形の領域 $D:c\leq y\leq d,\ \varphi(y)\leq x\leq \psi(y)$ における"],["Size=1.5"]);
+ Letter([[-5,2],"e","$\phantom{Q9.}$ $2$ 重積分 $\displaystyle\iint_D f(x,\ y)\,dxdy$ の計算方法は ?"],["Size=1.5"]);
+);
+
+if(no==9 & ans==1,
+ Letter([[-5,-0.5],"e","A."],["Size=1.5"]);
+ Expr([[-4,-0.5],"e","\displaystyle\iint_D f(x,\ y)\,dxdy=\int_c^d\left\{\int_{\varphi(y)}^{\psi(y)}f(x,\ y)\,dx\right\}dy"],["Size=1.5"]);
+// Letter([[-4,0],"e","上の\ 2\ つの式から $\alpha$ を消去する．"],["Size=1.5"]);
+);
+
+if(no==10,
+ Letter([[-5,3],"e","Q10. 極座標変換により，$2$ 重積分 $\displaystyle\iint_D f(x,\ y)\,dxdy$ はどうなるか ?"],["Size=1.5"]);
+// Letter([[-5,2],"e","$\phantom{Q7.}$ 2 重積分 $\displaystyle\iint_D f(x,\ y)\,dxdy$ の計算方法は ?"],["Size=1.5"]);
+);
+
+if(no==10 & ans==1,
+ Letter([[-5,1.5],"e","A."],["Size=1.5"]);
+ Expr([[-4,1.5],"e","\displaystyle\iint_D f(x,\ y)\,dxdy=\iint_D f(r\cos\theta,\ r\sin\theta)r\,drd\theta"],["Size=1.5"]);
+// Letter([[-4,0],"e","上の\ 2\ つの式から $\alpha$ を消去する．"],["Size=1.5"]);
+);
+
+if(no==11,
+ Letter([[-5,3],"e","Q11. 変数変換 $x=\varphi(u,\ v)$, $y=\psi(u,\ v)$ により，"],["Size=1.5"]);
+ Letter([[-5,2],"e","$\phantom{Q11.}$ $2$ 重積分 $\displaystyle\iint_D f(x,\ y)\,dxdy$ はどうなるか ?"],["Size=1.5"]);
+);
+
+if(no==11 & ans==1,
+ Letter([[-5,0.5],"e","A."],["Size=1.5"]);
+ Expr([[-4,0.5],"e","\displaystyle\iint_D f(x,\ y)\,dxdy=\iint_D f(\varphi(u,\ v),\ \psi(u,\ v))\left|\dfrac{\partial (x,\ y)}{\partial(u,\ v)}\right|\,dudv"],["Size=1.5"]);
+// Letter([[-4,0],"e","上の\ 2\ つの式から $\alpha$ を消去する．"],["Size=1.5"]);
+);
+
+
+Setax(["l","x","e","y","n","O","sw"]); 
+Setwindow([-5,5],[-5,5]);
+Setunitlen("1cm");
+Fontsize("s");
+Addax(0);
+Setscaling(1);
+//Setunitlen("4mm");
+
+
+
+//Plotdata("1","x^2","x");
+//Plotdata("2","x^2+2","x");
+//Plotdata("3","(x-1)^2","x");
+//Htickmark([-5,"s1w","-5",-10,"s1w","-10",5,"s1e","5",10,"s1e","10"]);
+//Vtickmark([5,"n1w","5",10,"n1w","10",-5,"s1w","-5",-10,"s1w","-10"]);
+//Figpdf();
+Windispg();
+
+//Help("Trans");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
+</script>
+    <script type="text/javascript">
+var cdy = CindyJS({
+  scripts: "cs*",
+  defaultAppearance: {
+    dimDependent: 0.7,
+    fontFamily: "sans-serif",
+    lineSize: 1,
+    pointSize: 5.0,
+    textsize: 12.0
+  },
+  angleUnit: "°",
+  geometry: [
+    {name: "SW", type: "Free", pos: [4.0, 4.0, -0.8], color: [1.0, 0.0, 0.0], labeled: true},
+    {name: "NE", type: "Free", pos: [4.0, 4.0, 0.8], color: [1.0, 0.0, 0.0], labeled: true},
+    {name: "Text33", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [1.0, 0.286, 0.286], fillalpha: 0.27272728085517883, script: "Viewtex();\nkc();", text: "Figure", textsize: 18.0, dock: {corner: "UL", offset: [10.0, -20.0]}},
+    {name: "Text134", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 0.0], fillalpha: 0.27272728085517883, script: "if(length(Shellparent)>0,\n  Makeshell(),Makebat();\n);\nif(indexof(Libname,\"sci\")>0,\n  writetosci(2),writetoRS(2)\n);\nkc();", text: "Parent", textsize: 18.0, dock: {corner: "UL", offset: [77.0, -20.0]}},
+    {name: "Text134'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 0.0], fillalpha: 0.27272728085517883, script: "if(length(Shellparent)>0,\n  Makeshell(),Makebat();\n);\nif(indexof(Libname,\"sci\")>0,\n  writetosci(2),writetoRS(2)\n);\nkc();", text: "Parent", textsize: 18.0, dock: {corner: "UL", offset: [77.0, -20.0]}},
+    {name: "Text21", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text22", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text21'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text22'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text21''", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text22''", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text213", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text223", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text214", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text224", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text215", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text225", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text216", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text226", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text213'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text223'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text217", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text227", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text218", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text228", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text219", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text229", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text213''", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text223''", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text214'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text224'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text215'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text225'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text216'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text226'", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text2133", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.5726495726495726, script: "Mkketcindyjs(append(KETJSOP,\"Web=y\"));", text: "Ketjson", textsize: 18.0, dock: {corner: "UL", offset: [144.0, -20.0]}},
+    {name: "Text2233", type: "Button", color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 0.4358974358974359, script: "Mkketcindyjs(append(KETJSOP,\"Web=n\"));", text: "Ketjsoff", textsize: 18.0, dock: {corner: "UL", offset: [218.0, -20.0]}},
+    {name: "Text0", type: "Button", pos: [4.0, -3.8005095452483166, -0.8936680724239119], color: [0.0, 0.0, 0.0], fillcolor: [0.0, 1.0, 1.0], fillalpha: 1.0, script: "if(no==11,\n no=no;\n ans=-1;\n,\n no=no+1;\n ans=-1;\n);", text: "次へ", textsize: 18.0},
+    {name: "Text1", type: "Button", pos: [2.0892622352081798, -4.0, -0.9352180890855493], color: [0.0, 0.0, 0.0], fillcolor: [1.0, 1.0, 0.0], fillalpha: 1.0, script: "ans=1;", text: "解答", textsize: 18.0},
+    {name: "Text2", type: "Button", pos: [-0.07582176771366131, -4.0, -0.9352180890855493], color: [0.0, 0.0, 0.0], fillcolor: [1.0, 0.0, 0.0], fillalpha: 1.0, script: "if(no==1,\n no=no;\n ans=-1;\n,\n no=no-1;\n ans=-1;\n);", text: "前へ", textsize: 18.0}
+  ],
+  ports: [{
+    id: "CSCanvas",
+    width: 890,
+    height: 553,
+    transform: [{visibleRect: [-6.031334992755424, 7.201048445895871, 15.657101950890343, -6.275025295493017]}],
+    background: "rgb(168,176,192)"
+  }],
+  csconsole: false,
+  use: ["katex"],
+  cinderella: {build: 1976, version: [3, 0, 1976]}
+});
+    </script>
+</head>
+<body>
+    <div id="CSCanvas"></div>
+</body>
+</html>
